@@ -1,17 +1,21 @@
 pipeline {
     agent any
     environment {
-        PROJECT_ID = "jenkins-project-328308"
-        CLUSTER_NAME = "k8s-cluster"
-        LOCATION = "us-central1-c"
-        CREDENTIALS_ID = 'jenkins-project'
+        PROJECT_ID = "deal-cart-prod"
+        CLUSTER_NAME = "dev-cluster"
+        LOCATION = "asia-southeast1-c"
+        CREDENTIALS_ID = 'DealCart-Prod'
     }
     stages {
         stage('pull from github repo'){
             steps{
-                git "https://github.com/Bukunmitanimonure/buksapp-UI.git"
+                git "https://github.com/sehargithub/practice-code.git"
             }
         }
+        stage('Initialize'){
+        def dockerHome = tool 'mydocker'
+        env.PATH = "${dockerHome}/bin:${env.PATH}"
+          }
         stage('build docker image'){
             steps{
                 sh "docker build -t bukunmi00/buksapp-frontend:${env.BUILD_ID} ."                
@@ -19,8 +23,8 @@ pipeline {
         }
         stage('push docker image to dockerhub'){
             steps{
-                withCredentials([string(credentialsId: 'DOCKER_PASS', variable: 'docker_pass')]) {
-                    sh "docker login -u bukunmi00 -p ${docker_pass}"
+                withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+                    sh "docker login -u dealcart -p ${dockerhub}"
                 }
                 sh "docker push bukunmi00/buksapp-frontend:${env.BUILD_ID}"
             }
