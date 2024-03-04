@@ -8,7 +8,7 @@ pipeline {
         PROJECT_ID = "deal-cart-prod"
         CLUSTER_NAME = "dev-cluster"
         LOCATION = "asia-southeast1-c"
-        CREDENTIALS_ID = 'DealCart-Prod'
+        CREDENTIALS_ID = 'kubernetes'
     }
     stages {
         stage('pull from github repo'){
@@ -16,16 +16,7 @@ pipeline {
                 git "https://github.com/sehargithub/practice-code.git"
             }
         }
-        stage('Initialize') {
-            steps {
-                // Define steps for initialization
-                script {
-                    // Define variables or environment setup
-                    def dockerHome = tool 'mydocker'
-                    env.PATH = "${dockerHome}/bin:${env.PATH}"
-                }
-            }
-        }
+        
         stage('build docker image'){
             steps{
                 script{
