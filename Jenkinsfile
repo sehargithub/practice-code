@@ -1,9 +1,6 @@
 pipeline {
     agent any
-    tools {
-        // Reference the Docker tool by its configured name
-        dockerTool 'mydocker'
-    }
+   
     environment {
         PROJECT_ID = "deal-cart-prod"
         CLUSTER_NAME = "dev-cluster"
