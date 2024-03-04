@@ -28,9 +28,15 @@ pipeline {
         }
         stage('build docker image'){
             steps{
+                script{
                 sh "docker build -t bukunmi00/buksapp-frontend:${env.BUILD_ID} ."                
             }
         }
+
+        }
+
+
+        
         stage('push docker image to dockerhub'){
             steps{
                 withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
