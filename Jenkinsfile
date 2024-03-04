@@ -12,10 +12,16 @@ pipeline {
                 git "https://github.com/sehargithub/practice-code.git"
             }
         }
-        stage('Initialize'){
-        def dockerHome = tool 'mydocker'
-        env.PATH = "${dockerHome}/bin:${env.PATH}"
-          }
+        stage('Initialize') {
+            steps {
+                // Define steps for initialization
+                script {
+                    // Define variables or environment setup
+                    def dockerHome = tool 'mydocker'
+                    env.PATH = "${dockerHome}/bin:${env.PATH}"
+                }
+            }
+        }
         stage('build docker image'){
             steps{
                 sh "docker build -t bukunmi00/buksapp-frontend:${env.BUILD_ID} ."                
