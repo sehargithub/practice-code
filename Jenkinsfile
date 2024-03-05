@@ -27,13 +27,14 @@ pipeline {
         
         stage('push docker image to dockerhub'){
             steps{
-                withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
-                    sh "docker login -u dealcart -p ${dockerhub} docker.io"
-                }
-                sh "docker push bukunmi00/buksapp-frontend:${env.BUILD_ID}"
-            }
-            
+        withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+            echo "Docker Hub credentials: ${dockerhub}" // Debug output
+            sh "docker login -u dealcart -p ${dockerhub} docker.io"
         }
+        sh "docker push bukunmi00/buksapp-frontend:${env.BUILD_ID}"
+    }
+}
+
         stage('deploy on k8 cluster'){
             steps{
                 sh "sed -i 's/tagversion/${env.BUILD_ID}/g' frontend-k8.yaml"
