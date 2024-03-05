@@ -31,7 +31,7 @@ pipeline {
             echo "Docker Hub credentials: ${dockerhub}" // Debug output
             sh "docker login -u dealcart -p ${dockerhub} docker.io"
         }
-        sh "docker push bukunmi00/buksapp-frontend:${env.BUILD_ID}"
+        sh "docker push dealcart/buksapp-frontend:${env.BUILD_ID}"
     }
 }
 
