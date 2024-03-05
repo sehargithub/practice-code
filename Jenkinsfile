@@ -28,7 +28,7 @@ pipeline {
         stage('push docker image to dockerhub'){
             steps{
                 withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
-                    sh "docker login -u dealcart -p ${dockerhub}"
+                    sh "docker login -u dealcart -p ${dockerhub} docker.io"
                 }
                 sh "docker push bukunmi00/buksapp-frontend:${env.BUILD_ID}"
             }
