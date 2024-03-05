@@ -17,7 +17,7 @@ pipeline {
         stage('build docker image'){
             steps{
                 script{
-                sh "docker build -t bukunmi00/buksapp-frontend:${env.BUILD_ID} ."                
+                sh "docker build -t dealcart/buksapp-frontend:${env.BUILD_ID} ."                
             }
         }
 
